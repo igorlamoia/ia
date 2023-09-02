@@ -1,8 +1,8 @@
 function bfs() {
-  type State = [number, number, number];
+  type Node = [number, number, number];
   type Queue = {
-    state: State;
-    steps: State[];
+    node: Node;
+    steps: Node[];
   };
   const JARS_NUMBER = 3;
   const targetState = [4, 4, 0];
@@ -10,56 +10,56 @@ function bfs() {
   let explored = new Set();
   let frontier: Queue[] = [] as Queue[];
 
-  function hashState(state: State) {
-    return state.join(",");
+  function hashState(node: Node) {
+    return node.join(",");
   }
 
-  function goalTest(state: State): boolean {
+  function goalTest(node: Node): boolean {
     for (let i = 0; i < JARS_NUMBER; i++) {
-      if (state[i] !== targetState[i]) return false;
+      if (node[i] !== targetState[i]) return false;
     }
     return true;
   }
 
-  function generateNewStates(currentState: State): State[] {
-    let newStates = [] as State[];
+  function generateNewStates(currentNode: Node): Node[] {
+    let newNodes = [] as Node[];
     for (let i = 0; i < JARS_NUMBER; i++) {
       for (let j = 0; j < JARS_NUMBER; j++) {
         // garante não despejar em sí mesmo
         if (i !== j) {
-          let newState = [...currentState];
+          let newNode = [...currentNode];
           // O resultado da comparação entre esses dois valores é a quantidade máxima de água que pode ser despejada da jarra de índice i para a jarra de índice j sem exceder a capacidade da jarra de destino.
-          let amount = Math.min(newState[i], capacities[j] - newState[j]);
-          newState[i] -= amount;
-          newState[j] += amount;
-          newStates.push(newState as State);
+          let amount = Math.min(newNode[i], capacities[j] - newNode[j]);
+          newNode[i] -= amount;
+          newNode[j] += amount;
+          newNodes.push(newNode as Node);
           // 6 estados são gerados, pois 3*3 = 9 - [0,0,0; 1,1,1; 2,2,2] = 6
         }
       }
     }
-    return newStates;
+    return newNodes;
   }
 
-  // Initial state
-  frontier.push({ state: [8, 0, 0], steps: [] });
+  // Initial node
+  frontier.push({ node: [8, 0, 0], steps: [] });
 
   console.log("Initial Queue");
   console.table(frontier);
 
   while (frontier.length > 0) {
-    console.count("Round:");
-    let { state: currentState, steps: currentSteps } = frontier.shift()!;
-    explored.add(hashState(currentState));
+    console.count("Path  cost:");
+    let { node: currentNode, steps: currentSteps } = frontier.shift()!;
+    explored.add(hashState(currentNode));
 
-    if (goalTest(currentState)) {
+    if (goalTest(currentNode)) {
       console.log("Found solution: ", currentSteps);
       break;
     }
 
-    let newStates = generateNewStates(currentState);
+    let newNodes = generateNewStates(currentNode);
 
     console.log("Current");
-    console.table({ state: currentState, stapes: currentSteps });
+    console.table({ node: currentNode, steps: currentSteps });
     console.log("Initial Queue");
     console.table(
       frontier.map((item) => ({
@@ -68,19 +68,19 @@ function bfs() {
       }))
     );
 
-    newStates.forEach((newState) => {
-      if (!explored.has(hashState(newState))) {
+    newNodes.forEach((newNode) => {
+      if (!explored.has(hashState(newNode))) {
         frontier.push({
-          state: newState,
-          steps: [...currentSteps, newState],
+          node: newNode,
+          steps: [...currentSteps, newNode],
         });
       }
     });
 
     console.log("Visited");
     console.table(explored);
-    console.log("newStates");
-    console.table(newStates);
+    console.log("newNodes");
+    console.table(newNodes);
     console.log("Final Queue");
     console.table(
       frontier.map((item) => ({

@@ -1,72 +1,72 @@
 function dls() {
-  type State = [number, number, number];
+  type Node = [number, number, number];
   type Queue = {
-    state: State;
-    steps: State[];
+    node: Node;
+    steps: Node[];
     depth: number;
   };
   const JARS_NUMBER = 3;
   const MAX_DEPTH = 10; // Set some maximum depth
-  const INITIAL_STATE: Queue = { state: [8, 0, 0], steps: [], depth: 0 };
+  const INITIAL_STATE: Queue = { node: [8, 0, 0], steps: [], depth: 0 };
   const targetState = [4, 4, 0];
   const capacities = [8, 5, 3];
   let explored = new Set();
   const frontier = [] as Queue[];
 
-  function hashState(state: State) {
-    return state.join(",");
+  function hashState(node: Node) {
+    return node.join(",");
   }
 
-  function goalTest(state: State): boolean {
+  function goalTest(node: Node): boolean {
     for (let i = 0; i < JARS_NUMBER; i++) {
-      if (state[i] !== targetState[i]) return false;
+      if (node[i] !== targetState[i]) return false;
     }
     return true;
   }
 
-  function generateNewStates(currentState: State): State[] {
-    let newStates = [] as State[];
+  function generateNewStates(currentNode: Node): Node[] {
+    let newNodes = [] as Node[];
     for (let i = 0; i < JARS_NUMBER; i++) {
       for (let j = 0; j < JARS_NUMBER; j++) {
         // garante não despejar em sí mesmo
         if (i !== j) {
-          let newState = [...currentState];
+          let newNode = [...currentNode];
           // O resultado da comparação entre esses dois valores é a quantidade máxima de água que pode ser despejada da jarra de índice i para a jarra de índice j sem exceder a capacidade da jarra de destino.
-          let amount = Math.min(newState[i], capacities[j] - newState[j]);
-          newState[i] -= amount;
-          newState[j] += amount;
-          newStates.push(newState as State);
+          let amount = Math.min(newNode[i], capacities[j] - newNode[j]);
+          newNode[i] -= amount;
+          newNode[j] += amount;
+          newNodes.push(newNode as Node);
           // 6 estados são gerados, pois 3*3 = 9 - [0,0,0; 1,1,1; 2,2,2] = 6
         }
       }
     }
-    return newStates;
+    return newNodes;
   }
 
-  // Initial state
+  // Initial node
   frontier.push(INITIAL_STATE);
 
   console.log("Initial Queue");
   console.table(frontier);
 
   while (frontier.length > 0) {
-    console.count("Round:");
+    console.count("Path  cost:");
     const {
-      state: currentState,
+      node: currentNode,
       steps: currentSteps,
       depth: currentDepth,
     } = frontier.pop()!;
-    explored.add(hashState(currentState));
+    explored.add(hashState(currentNode));
 
-    if (goalTest(currentState)) {
+    if (goalTest(currentNode)) {
       console.log("Found solution: ", currentSteps);
       break;
     }
 
-    let newStates = generateNewStates(currentState);
+    let newNodes = generateNewStates(currentNode);
 
     console.log("Current");
-    console.table({ state: currentState, stapes: currentSteps });
+    console.table({ node: currentNode, steps: currentSteps });
     console.log("Initial Queue");
     console.table(
       frontier.map((item) => ({
@@ -77,11 +77,11 @@ function dls() {
 
     // <-- Check the depth before generating new states
     if (currentDepth < MAX_DEPTH) {
-      newStates.forEach((newState) => {
-        if (!explored.has(hashState(newState))) {
+      newNodes.forEach((newNode) => {
+        if (!explored.has(hashState(newNode))) {
           frontier.push({
-            state: newState,
-            steps: [...currentSteps, newState],
+            node: newNode,
+            steps: [...currentSteps, newNode],
             depth: currentDepth + 1, // <-- Increment the depth
           });
         }
@@ -89,8 +89,8 @@ function dls() {
     }
     console.log("Visited");
     console.table(explored);
-    console.log("newStates");
-    console.table(newStates);
+    console.log("newNodes");
+    console.table(newNodes);
     console.log("Final Queue");
     console.table(
       frontier.map((item) => ({
