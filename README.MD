@@ -1,10 +1,6 @@
-# Inside algorithms
+# The Water Jar puzzle
 
-`cd algorithms`
-
-`npm run bfs` ou `npm run dls`
-
-We have the following codes:
+I have the following codes inside algorithms:
 
 - BREADTH-FIRST SEARCH (Busca em largura) - [aima-pseudocode](https://github.com/aimacode/aima-pseudocode/blob/master/md/Breadth-First-Search.md)
   `npm run bfs`
@@ -14,6 +10,18 @@ We have the following codes:
   Always looking at the last position inserted in the frontier (LIFO), guaranteeing the search in depth
 
 ![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/jars.png?raw=true)
+
+My solution explanaition:
+
+![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/for-solution.png?raw=true)
+
+Simulation of breadth:
+
+![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/simulacao-breadth.png?raw=true)
+
+Simulation of depth:
+
+![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/simulacao-depth.png?raw=true)
 
 Just switching from FIFO to LIFO I can get a depth search, adding the depth parameter (deapth) I get a limited depth avoiding infinite loops
 
@@ -70,3 +78,9 @@ while (frontier.length > 0) {
   // ... other code ...
 }
 ```
+
+# Runing
+
+`cd algorithms`
+
+`npm run bfs` ou `npm run dls`
