@@ -13,6 +13,8 @@ We have the following codes:
   `npm run dls`
   Always looking at the last position inserted in the frontier (LIFO), guaranteeing the search in depth
 
+![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/jars.png?raw=true)
+
 Just switching from FIFO to LIFO I can get a depth search, adding the depth parameter (deapth) I get a limited depth avoiding infinite loops
 
 In the code: simply changing `frontier.shift()` to `frontier.pop()` would change the behavior of your search algorithm from Breadth-First Search (BFS) to a Depth-First Search (DFS) approach. But it won't make it a Depth-Limited Search (DLS) specifically.
