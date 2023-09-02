@@ -1,14 +1,17 @@
-function bfs() {
+function dls() {
   type State = [number, number, number];
   type Queue = {
     state: State;
     steps: State[];
+    depth: number;
   };
   const JARS_NUMBER = 3;
+  const MAX_DEPTH = 10; // Set some maximum depth
+  const INITIAL_STATE: Queue = { state: [8, 0, 0], steps: [], depth: 0 };
   const targetState = [4, 4, 0];
   const capacities = [8, 5, 3];
   let explored = new Set();
-  let frontier: Queue[] = [] as Queue[];
+  const frontier = [] as Queue[];
 
   function hashState(state: State) {
     return state.join(",");
@@ -41,14 +44,18 @@ function bfs() {
   }
 
   // Initial state
-  frontier.push({ state: [8, 0, 0], steps: [] });
+  frontier.push(INITIAL_STATE);
 
   console.log("Initial Queue");
   console.table(frontier);
 
   while (frontier.length > 0) {
     console.count("Round:");
-    let { state: currentState, steps: currentSteps } = frontier.shift()!;
+    const {
+      state: currentState,
+      steps: currentSteps,
+      depth: currentDepth,
+    } = frontier.pop()!;
     explored.add(hashState(currentState));
 
     if (goalTest(currentState)) {
@@ -68,15 +75,18 @@ function bfs() {
       }))
     );
 
-    newStates.forEach((newState) => {
-      if (!explored.has(hashState(newState))) {
-        frontier.push({
-          state: newState,
-          steps: [...currentSteps, newState],
-        });
-      }
-    });
-
+    // <-- Check the depth before generating new states
+    if (currentDepth < MAX_DEPTH) {
+      newStates.forEach((newState) => {
+        if (!explored.has(hashState(newState))) {
+          frontier.push({
+            state: newState,
+            steps: [...currentSteps, newState],
+            depth: currentDepth + 1, // <-- Increment the depth
+          });
+        }
+      });
+    }
     console.log("Visited");
     console.table(explored);
     console.log("newStates");
@@ -92,4 +102,4 @@ function bfs() {
     console.log("\n\n");
   }
 }
-bfs();
+dls();
