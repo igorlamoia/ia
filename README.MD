@@ -84,15 +84,42 @@ while (frontier.length > 0) {
 `cd algorithms`
 
 `npm run bfs` or `npm run dls`
+
 `npm run 8` to run 8-puzzle
 
 # 8-Puzzle Problem
 
 [problem](https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/)
 
-[slides](http://aima.eecs.berkeley.edu/slides-pdf/chapter04a.pdf)
+![problem](https://media.geeksforgeeks.org/wp-content/cdn-uploads/8puzzle.png)
 
-Using A\* to solve
+[Slides](http://aima.eecs.berkeley.edu/slides-pdf/chapter04a.pdf)
+
+![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/for-puzzle-solution.png?raw=true)
+
+Using A\* to solve, sorting the frontier for each iteration
+
+```typescript
+/**
+ * f(n) = estimated total cost of path through n to goal
+ * @param state
+ * @returns f(n) = g(n) + h(n) (The total cost of the current state)
+ */
+function calculateTotalCost(state: Queue): number {
+  // g(n) = cost so far to reach n (The cost to reach the current state)
+  const distanceToState = state.distance;
+  // h(n) = estimated cost to goal from n (The heuristic cost (Manhattan distance))
+  const heuristicCost = manhattanDistance(state.node);
+  return distanceToState + heuristicCost;
+}
+
+// ....
+while (frontier.length > 0) {
+  frontier.sort((a, b) => calculateTotalCost(a) - calculateTotalCost(b));
+  const currentState = frontier.shift()!;
+  // ... rest
+}
+```
 
 Result:
 ![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/resultado_8-puzzle.png?raw=true)
