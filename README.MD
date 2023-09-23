@@ -1,3 +1,15 @@
+# This is a repository for my IA studies
+
+## Algorithms to solve Puzzle problems
+
+<!-- put a link to scroll to 8-Puzzle Problem -->
+
+<p align="center">
+ <a href="#the-water-jar-puzzle"> The Water Jar puzzle </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#8-puzzle-puzzle"> 8-Puzzle Puzzle </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#runing">Run</a>
+</p>
+
 # The Water Jar puzzle
 
 I have the following codes inside algorithms:
@@ -79,15 +91,13 @@ while (frontier.length > 0) {
 }
 ```
 
-# Runing
+<p align="center">
+ <a href="#the-water-jar-puzzle"> The Water Jar puzzle </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#8-puzzle-puzzle"> 8-Puzzle Puzzle</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#runing">Run</a>
+</p>
 
-`cd algorithms`
-
-`npm run bfs` or `npm run dls`
-
-`npm run 8` to run 8-puzzle
-
-# 8-Puzzle Problem
+# 8-Puzzle Puzzle
 
 [problem](https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/)
 
@@ -123,3 +133,17 @@ while (frontier.length > 0) {
 
 Result:
 ![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/resultado_8-puzzle.png?raw=true)
+
+<p align="center">
+ <a href="#the-water-jar-puzzle"> The Water Jar puzzle </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#8-puzzle-puzzle"> 8-Puzzle Puzzle </a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#runing">Run</a>
+</p>
+
+# Runing
+
+`cd algorithms`
+
+`npm run bfs` or `npm run dls`
+
+`npm run 8` to run 8-puzzle
