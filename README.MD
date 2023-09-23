@@ -83,4 +83,16 @@ while (frontier.length > 0) {
 
 `cd algorithms`
 
-`npm run bfs` ou `npm run dls`
+`npm run bfs` or `npm run dls`
+`npm run 8` to run 8-puzzle
+
+# 8-Puzzle Problem
+
+[problem](https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/)
+
+[slides](http://aima.eecs.berkeley.edu/slides-pdf/chapter04a.pdf)
+
+Using A\* to solve
+
+Result:
+![problem](https://github.com/igorlamoia/ia/blob/main/algorithms/assets/resultado_8-puzzle.png?raw=true)
