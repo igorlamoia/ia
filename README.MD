@@ -143,7 +143,10 @@ Result:
 # Runing
 
 `cd algorithms`
+`npm install` to install dependencies
 
 `npm run bfs` or `npm run dls`
 
 `npm run 8` to run 8-puzzle
+`npm run ttt` to run tic-tac-toe
+`npm run as` to run a-star
